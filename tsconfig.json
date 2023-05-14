@@ -12,6 +12,11 @@
 // vite build
 {
   "compilerOptions": {
+    // "baseUrl": "./",  // 这里需要配置
+    // "paths": {
+    //   "@/*": ["./src/*"]  // 这里需要配置
+    // },
+
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
