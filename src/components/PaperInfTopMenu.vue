@@ -1,7 +1,9 @@
 <template>
     <div @contextmenu.prevent="onContextmenu" class="menu" :style="menuStyle">
-        <div v-for="(menuItem, index) in menuItems" :key="index" class="menu-item" @click="handleClick(menuItem)">
-            {{ menuItem }}
+        <div v-for="(menuItem, index) in menuItems" 
+        :class="{ 'selected': isSelected === index }"
+        :key="index" class="menu-item" @click="handleClick(menuItem);isSelected=index">
+            <span>{{ menuItem }}</span>
         </div>
     </div>
 </template>
@@ -16,7 +18,8 @@ export default defineComponent({
             menuVisible: false, // 是否显示右键菜单
             menuTop: 0, // 右键菜单的 top 值
             menuLeft: 0, // 右键菜单的 left 值
-            menuItems: ['菜单项1', '菜单项2', '菜单项3'], // 右键菜单项
+            menuItems: ['Paper Information', '菜单项2'], // 右键菜单项
+            isSelected: 0, // 是否选中
         };
     },
     methods: {
@@ -42,27 +45,31 @@ export default defineComponent({
 });
 </script>
   
-<style scoped>
+<style scoped lang="scss">
 .menu {
-    /* position: absolute; */
-    /* z-index: 9999; */
+    padding: 8px 0px 10px 0px;
     display: flex;
-    justify-content: center;
-    background-color: #383838;
-    font-size: 14px;
-    padding: 8px 0;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    background-color: #2d2d2d;
 }
 
 .menu-item {
-    margin: 0 8px;
+    /* margin: 0 8px; */
     padding: 8px;
+    /* display: inline-block; */
     cursor: pointer;
+    user-select: none;
 }
 
 .menu-item:hover {
     background-color: #4b4b4b;
 }
-
+.menu-item.selected {
+    background-color: #00000078;
+    border-bottom: 2px solid #3388ff;
+}
 .right-column {
     position: relative;
     height: calc(100% - 20px);
@@ -72,7 +79,7 @@ export default defineComponent({
     width: 100%;
     top: 20px;
     left: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    /* border-radius: 2px; */
 }
 </style>

@@ -46,7 +46,7 @@ export default defineComponent({
     },
 })
 </script>
-<style scoped>
+<style scoped lang="scss">
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -54,16 +54,32 @@ export default defineComponent({
     justify-content: space-around;
 }
 
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 73%;
+    width: 3px;
+    /* 线的宽度 */
+    height: 100%;
+    background-color: #696969;
+    /* 线的颜色 */
+}
+
 .left-column {
-    width: 60%;
-    margin-right: 5%;
+    width: 72%;
+    /* padding-right: 0.1%; */
 }
 
 .right-column {
-    width: 30%;
+    width: 26%;
 }
 
 @media (max-width: 768px) {
+    .container:before {
+        display: none;
+    }
+
     .left-column {
         width: 100%;
         margin-right: 0;
@@ -73,5 +89,4 @@ export default defineComponent({
         width: 100%;
         margin-top: 16px;
     }
-}
-</style>
+}</style>

@@ -1,24 +1,27 @@
 <template>
-    <table class="PaperListTable">
-        <thead>
-            <tr>
-                <th v-for="(item, index) in extractedKeysList" :key="index" style="resize: horizontal; overflow: hidden;"
-                    :style="{ width: columnWidths[index] + 'px' }" :width="defaultColumnWidth(index)">
-                    <span @mousedown.stop="orderBy(item.key)">
-                        {{ item.key[0].toUpperCase() + item.key.substring(1) }}
-                    </span>
-                    <span v-if="sortedColumn === item.key" :class="sortOrder"></span>
-                </th>
-                <th class="no-hover"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item, index) in listData" :key="index" :class="{ 'selected': selected === index }"
-                @mousedown="this.$emit('selectedInf', index); selected = index">
-                <td v-for="(key, index) in item" :key="index">{{ key }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="PaperListBox">
+        <table class="PaperListTable">
+            <thead>
+                <tr>
+                    <th v-for="(item, index) in extractedKeysList" :key="index"
+                        style="resize: horizontal; overflow: hidden;" :style="{ width: columnWidths[index] + 'px' }"
+                        :width="defaultColumnWidth(index)">
+                        <span @mousedown.stop="orderBy(item.key)">
+                            {{ item.key[0].toUpperCase() + item.key.substring(1) }}
+                        </span>
+                        <span v-if="sortedColumn === item.key" :class="sortOrder"></span>
+                    </th>
+                    <th class="no-hover"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in listData" :key="index" :class="{ 'selected': selected === index }"
+                    @mousedown="this.$emit('selectedInf', index); selected = index">
+                    <td v-for="(key, index) in item" :key="index">{{ key }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
 <script lang="ts">
 import { reactive, ref, computed, defineComponent } from 'vue'
@@ -92,11 +95,34 @@ export default defineComponent({
 $height: 35px;
 $background: rgba(101, 101, 101, 0.518);
 
+.PaperListBox {
+    width: 100%;
+    overflow: auto;
+}
+
 .PaperListTable {
+    // table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     // padding: 20px;
+}
+.PaperListBox::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.PaperListBox::-webkit-scrollbar-track {
+    background: #444444;
+}
+
+.PaperListBox::-webkit-scrollbar-thumb {
+    background: #696969;
+    border-radius: 2px;
+}
+
+.PaperListBox::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .no-hover {
@@ -105,6 +131,7 @@ $background: rgba(101, 101, 101, 0.518);
 }
 
 th {
+    // max-width: 300px;
     padding-top: 5px;
     padding-bottom: 5px;
     user-select: none;
@@ -113,7 +140,11 @@ th {
         background-color: $background
     }
 }
-
+thead {
+    tr{
+        background-color: #2d2d2d;
+    }
+}
 tbody {
     tr {
         &:hover {
@@ -156,5 +187,4 @@ td {
     // &:hover {
     //     background-color: rgba(255, 119, 119, 0.86);
     // }
-}
-</style>
+}</style>

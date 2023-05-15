@@ -62,6 +62,8 @@ module.exports = (env, argv) => {
         },
         externals: {
             siyuan: "siyuan",
+            "child_process": "null",
+            "electron": "null"
         },
         entry,
         optimization: {
@@ -89,12 +91,25 @@ module.exports = (env, argv) => {
                                 transpileOnly: true,
                                 compilerOptions: {
                                     target: "es6" // 或者任何你需要的目标版本
-                                  },
+                                },
                                 // target: "es6",
                             }
                         },
                     ],
                 },
+                // {
+                //     test: /\.scss$/,
+                //     include: [path.resolve(__dirname, "src")],
+                //     use: [
+                //         MiniCssExtractPlugin.loader,
+                //         {
+                //             loader: "css-loader", // translates CSS into CommonJS
+                //         },
+                //         {
+                //             loader: "sass-loader", // compiles Sass to CSS
+                //         },
+                //     ],
+                // },
                 {
                     test: /\.scss$/,
                     include: [path.resolve(__dirname, "src")],
@@ -102,6 +117,14 @@ module.exports = (env, argv) => {
                         MiniCssExtractPlugin.loader,
                         {
                             loader: "css-loader", // translates CSS into CommonJS
+                        },
+                        {
+                            loader: "postcss-loader", // 添加postcss-loader，用于处理兼容性问题
+                            options: {
+                                postcssOptions: {
+                                    config: path.resolve(__dirname, "postcss.config.js"), // 指定postcss插件配置文件
+                                },
+                            },
                         },
                         {
                             loader: "sass-loader", // compiles Sass to CSS

@@ -1,4 +1,4 @@
-import {Plugin, showMessage, confirm, Dialog, Menu, isMobile, openTab} from "siyuan";
+import { Plugin, showMessage, confirm, Dialog, Menu, isMobile, openTab } from "siyuan";
 import "./index.scss";
 // 如果要使用 Options API，请设置为 true；如果要使用 Composition API，请设置为 false
 window.__VUE_OPTIONS_API__ = true;
@@ -6,6 +6,12 @@ window.__VUE_OPTIONS_API__ = true;
 window.__VUE_PROD_DEVTOOLS__ = false;
 import { createApp } from "vue";
 import App from "./page/PaperView.vue";
+
+// 在你的 main.js 文件中添加以下代码以启用 nodeIntegration 选项
+document.addEventListener("DOMContentLoaded", () => {
+    const { ipcRenderer } = require("electron");
+    ipcRenderer.send("enable-node-integration");
+});
 
 const STORAGE_NAME = "menu-config";
 const TAB_TYPE = "custom_tab";
@@ -64,7 +70,7 @@ export default class PluginSample extends Plugin {
         });
     }
 
-    private wsEvent({detail}: any) {
+    private wsEvent({ detail }: any) {
         console.log(detail);
     }
 

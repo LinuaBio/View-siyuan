@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+import { openPdfInWPS } from '../lib/openFile';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -18,7 +19,7 @@ export default defineComponent({
             menuVisible: false,
             menuTop: 0,
             menuLeft: 0,
-            menuItems: ['菜单项1', '菜单项2', '菜单项3'],
+            menuItems: ['菜单项1', '菜单项2', 'Open With WPS'],
         };
     },
     methods: {
@@ -28,7 +29,10 @@ export default defineComponent({
             this.menuLeft = event.clientX;
         },
         handleClick(menuItem: string) {
-            // console.log('点击了菜单项：', menuItem);
+            console.log('点击了菜单项：', menuItem);
+            if (menuItem=='Open With WPS') {
+                openPdfInWPS("E:/Paper/DeepLearning/RNN-LSTM.pdf");
+            }
             this.menuVisible = false;
         },
     },
@@ -49,7 +53,7 @@ export default defineComponent({
 });
 </script>
   
-<style scoped>
+<style scoped lang="scss">
 .menu {
     position: fixed;
     z-index: 9999;
