@@ -63,7 +63,7 @@ module.exports = (env, argv) => {
         externals: {
             siyuan: "siyuan",
             "child_process": "null",
-            "electron": "null"
+            "electron": "null",
         },
         entry,
         optimization: {
