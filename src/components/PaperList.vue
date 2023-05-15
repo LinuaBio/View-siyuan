@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             <tr v-for="(item, index) in listData" :key="index" :class="{ 'selected': selected === index }"
-                @click="this.$emit('selectedInf', index); selected = index">
+                @mousedown="this.$emit('selectedInf', index); selected = index">
                 <td v-for="(key, index) in item" :key="index">{{ key }}</td>
             </tr>
         </tbody>

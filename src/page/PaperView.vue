@@ -1,9 +1,12 @@
 <template>
     <div class="container">
         <div class="left-column">
-            <PaperList :listData=arr @selectedInf="handleSelectedInf"></PaperList>
+            <PaperRightMenu>
+                <PaperList :listData=arr @selectedInf="handleSelectedInf"></PaperList>
+            </PaperRightMenu>
         </div>
         <div class="right-column">
+            <PaperInfTopMenu style="height: 20px;"></PaperInfTopMenu>
             <PaperInf :item="PaperInf"></PaperInf>
         </div>
     </div>
@@ -13,10 +16,12 @@
 import { defineComponent } from 'vue'
 import PaperList from '../components/PaperList.vue';
 import PaperInf from '../components/PaperInf.vue'
+import PaperRightMenu from '../components/PaperRightMenu.vue'
+import PaperInfTopMenu from '../components/PaperInfTopMenu.vue'
 
 export default defineComponent({
     components: {
-        PaperList, PaperInf
+        PaperList, PaperInf, PaperRightMenu, PaperInfTopMenu
     },
     data: function () {
         return {
