@@ -67,7 +67,7 @@ export default defineComponent({
     background-color: #4b4b4b;
 }
 .menu-item.selected {
-    background-color: #00000078;
+    // background-color: #00000000;
     border-bottom: 2px solid #3388ff;
 }
 .right-column {

@@ -14,10 +14,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PaperList from '../components/PaperList.vue';
-import PaperInf from '../components/PaperInf.vue'
-import PaperRightMenu from '../components/PaperRightMenu.vue'
-import PaperInfTopMenu from '../components/PaperInfTopMenu.vue'
+import PaperList from '../components/paper/PaperList.vue';
+import PaperInf from '../components/paper/PaperInf.vue'
+import PaperRightMenu from '../components/paper/PaperRightMenu.vue'
+import PaperInfTopMenu from '../components/paper/PaperInfTopMenu.vue'
 
 export default defineComponent({
     components: {

@@ -2,6 +2,9 @@
     "cSpell.words": [
         "afdian",
         "btns",
+        "Lazyload",
         "siyuan"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true, // 可选配置，建议加上
 }

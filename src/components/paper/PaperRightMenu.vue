@@ -31,7 +31,7 @@ export default defineComponent({
         handleClick(menuItem: string) {
             console.log('点击了菜单项：', menuItem);
             if (menuItem=='Open With WPS') {
-                openPdfInWPS("E:/Paper/DeepLearning/RNN-LSTM.pdf");
+                // openPdfInWPS("E:/Paper/DeepLearning/RNN-LSTM.pdf");
             }
             this.menuVisible = false;
         },

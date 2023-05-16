@@ -152,7 +152,9 @@ tbody {
         }
 
         &.selected {
-            background-color: $background
+            background-color: $background;
+            outline: 1px dashed rgb(204, 204, 204);
+            // outline-offset: 0px;
         }
     }
 }
