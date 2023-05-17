@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-// import { openPdfInWPS } from '@/lib/openFile';
+import { openPdfInWPS,File } from '@/lib/openFile';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -19,7 +19,7 @@ export default defineComponent({
             menuVisible: false,
             menuTop: 0,
             menuLeft: 0,
-            menuItems: ['菜单项1', '菜单项2', 'Open With WPS'],
+            menuItems: ['菜单项1', 'Open Assets', 'Open With WPS'],
         };
     },
     methods: {
@@ -31,7 +31,10 @@ export default defineComponent({
         handleClick(menuItem: string) {
             console.log('点击了菜单项：', menuItem);
             if (menuItem=='Open With WPS') {
-                // openPdfInWPS("E:/Paper/DeepLearning/RNN-LSTM.pdf");
+                openPdfInWPS("E:/Paper/DeepLearning/RNN-LSTM.pdf");
+            }else if(menuItem=="Open Assets"){
+                const myFileReader  = new File()
+                console.log(myFileReader.groupFilesByType("E:/SiyuanSpace/data/assets"))
             }
             this.menuVisible = false;
         },
