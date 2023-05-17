@@ -1,3 +1,81 @@
+<template>
+  <ColumnLayout :leftWidth="'72%'" :rightWidth="'26%'">
+  <template v-slot:left>
+    <Waterfall :loadProps="loadProps" :crossOrigin="false" :animationEffect="'fadeInUp'" :backgroundColor="'#00000000'"
+        :breakpoints="breakpoints" :list="images">
+        <template #item="{ item, index }">
+          <div class="card">
+            <!-- <img :src="item.url" :alt="item.alt" /> -->
+            <LazyImg :url="item.url" @mousedown="console.log(index)" />
+          </div>
+        </template>
+      </Waterfall>
+  </template>
+  <template v-slot:right>
+    <!-- 右边内容 -->
+  </template>
+</ColumnLayout>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next'
+import 'vue-waterfall-plugin-next/dist/style.css'
+import ColumnLayout from '@/components/tool/TwoColumns.vue'
+interface Image {
+  id: number;
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+export default defineComponent({
+  components: {
+    Waterfall, LazyImg, ColumnLayout
+  },
+  data: () => {
+    return {
+      loadProps: {
+        loading: "@assets/loading.svg",
+        error: "@assets/loadError.svg"
+      },
+      images: generateImages(20),
+      breakpoints: {
+        1200: { //当屏幕宽度小于等于1200
+          rowPerView: 4,
+        },
+        800: { //当屏幕宽度小于等于800
+          rowPerView: 3,
+        },
+        500: { //当屏幕宽度小于等于500
+          rowPerView: 2,
+        }
+      }
+    }
+  },
+})
+
+function generateImages(numOfImages: number) {
+  const images: Image[] = [];
+  for (let i = 1; i <= numOfImages; i++) {
+    const width = Math.floor(Math.random() * 500) + 250; // 随机生成宽度，取值范围为 [250, 750]
+    const height = Math.floor(Math.random() * 500) + 200; // 随机生成高度，取值范围为 [200, 700]
+    const url = `https://via.placeholder.com/${width}x${height}`; // 根据宽度和高度生成图片 URL
+    const alt = 'placeholder image';
+    images.push({ id: i, url, alt, width: width, height: height });
+  }
+  return images;
+}
+</script>
+
+<style lang="scss">
+// img {
+//   width: 100%;
+//   height: auto;
+//   border-radius: 5px;
+// }
+</style>
+
 <!-- <template>
   <div class="image-grid masonry">
     <div class="image-item" v-for="image in images" :key="image.id">
@@ -76,7 +154,8 @@ function generateImages(numOfImages: number) {
 }
 </style> -->
 
-<template>
+
+<!-- <template>
   <div class="image-grid">
     <div class="column" v-for="(column, index) in columns" :key="index">
       <div class="image-item" v-for="image in column" :key="image.id">
@@ -191,4 +270,4 @@ function splitIntoColumns(images: Image[], count: number) {
   object-fit: cover;
   border-radius: 5px;
 }
-</style>
+</style> -->

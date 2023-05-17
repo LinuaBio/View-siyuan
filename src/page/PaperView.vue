@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <!-- <div class="container">
         <div class="left-column">
             <PaperRightMenu>
                 <PaperList :listData=arr @selectedInf="handleSelectedInf"></PaperList>
@@ -9,7 +9,18 @@
             <PaperInfTopMenu style="height: 20px;"></PaperInfTopMenu>
             <PaperInf :item="PaperInf"></PaperInf>
         </div>
-    </div>
+    </div> -->
+    <ColumnLayout :leftWidth="'72%'" :rightWidth="'26%'">
+        <template v-slot:left>
+            <PaperRightMenu>
+                <PaperList :listData=arr @selectedInf="handleSelectedInf"></PaperList>
+            </PaperRightMenu>
+        </template>
+        <template v-slot:right>
+            <PaperInfTopMenu style="height: 20px;"></PaperInfTopMenu>
+            <PaperInf :item="PaperInf"></PaperInf>
+        </template>
+    </ColumnLayout>
 </template>
 
 <script lang="ts">
@@ -18,10 +29,11 @@ import PaperList from '../components/paper/PaperList.vue';
 import PaperInf from '../components/paper/PaperInf.vue'
 import PaperRightMenu from '../components/paper/PaperRightMenu.vue'
 import PaperInfTopMenu from '../components/paper/PaperInfTopMenu.vue'
+import ColumnLayout from '@/components/tool/TwoColumns.vue'
 
 export default defineComponent({
     components: {
-        PaperList, PaperInf, PaperRightMenu, PaperInfTopMenu
+        PaperList, PaperInf, PaperRightMenu, PaperInfTopMenu, ColumnLayout
     },
     data: function () {
         return {
@@ -46,7 +58,7 @@ export default defineComponent({
     },
 })
 </script>
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -68,7 +80,6 @@ export default defineComponent({
 
 .left-column {
     width: 72%;
-    /* padding-right: 0.1%; */
 }
 
 .right-column {
@@ -89,4 +100,5 @@ export default defineComponent({
         width: 100%;
         margin-top: 16px;
     }
-}</style>
+}
+</style> -->

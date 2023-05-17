@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { openPdfInWPS } from '../lib/openFile';
+// import { openPdfInWPS } from '@/lib/openFile';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

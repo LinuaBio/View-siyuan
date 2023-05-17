@@ -3,7 +3,7 @@
         <div v-for="(menuItem, index) in menuItems" 
         :class="{ 'selected': isSelected === index }"
         :key="index" class="menu-item" @click="handleClick(menuItem);isSelected=index">
-            <span>{{ menuItem }}</span>
+            <span class="menu-title">{{ menuItem }}</span>
         </div>
     </div>
 </template>
@@ -53,8 +53,15 @@ export default defineComponent({
     justify-content: flex-start;
     cursor: pointer;
     background-color: #2d2d2d;
-}
 
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.menu-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .menu-item {
     /* margin: 0 8px; */
     padding: 8px;

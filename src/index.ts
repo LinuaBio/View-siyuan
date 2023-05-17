@@ -5,7 +5,8 @@ window.__VUE_OPTIONS_API__ = true;
 // 启用或禁用 Vue 3 开发工具扩展（仅在开发模式下使用）
 window.__VUE_PROD_DEVTOOLS__ = false;
 import { createApp } from "vue";
-import App from "./page/PaperView.vue";
+// import App from "./page/PaperView.vue";
+import App from "./page/ImageView.vue";
 
 // 在你的 main.js 文件中添加以下代码以启用 nodeIntegration 选项
 // document.addEventListener("DOMContentLoaded", () => {

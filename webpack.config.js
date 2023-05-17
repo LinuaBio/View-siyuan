@@ -7,7 +7,9 @@ const CopyPlugin = require("copy-webpack-plugin");
 // const ZipPlugin = require("zip-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader/dist/index");
 const { compileScript } = require("@vue/compiler-sfc");
-const outPath = "E:/SiyuanSpace/data/plugins/Encryption";
+const projectName = "view";
+const outPath = "E:/SiyuanSpace/data/plugins/" + projectName;
+const glob = require("glob");
 
 module.exports = (env, argv) => {
     const isPro = argv.mode === "production";
@@ -36,6 +38,7 @@ module.exports = (env, argv) => {
                 { from: "README*.md", to: "./" + outPath + "/" },
                 { from: "plugin.json", to: "./" + outPath + "/" },
                 { from: "src/i18n/", to: "./" + outPath + "/i18n/" },
+                { from: "src/assets", to: "./" + outPath + "/assets/"  }
             ],
         }));
         // plugins.push(new ZipPlugin({
@@ -73,9 +76,10 @@ module.exports = (env, argv) => {
             ],
         },
         resolve: {
-            extensions: [".ts", ".scss", ".js", ".vue", ".json"],
+            extensions: [".ts", ".scss", "css", ".js", ".vue", ".json"],
             alias: {
-                vue$: "vue/dist/vue.esm-bundler.js"
+                vue$: "vue/dist/vue.esm-bundler.js",
+                "@": path.resolve(__dirname, "src"),
             },
         },
         module: {
@@ -106,9 +110,27 @@ module.exports = (env, argv) => {
                 //             loader: "css-loader", // translates CSS into CommonJS
                 //         },
                 //         {
+                //             loader: "postcss-loader", // 添加postcss-loader，用于处理兼容性问题
+                //             options: {
+                //                 postcssOptions: {
+                //                     config: path.resolve(__dirname, "postcss.config.js"), // 指定postcss插件配置文件
+                //                 },
+                //             },
+                //         },
+                //         {
                 //             loader: "sass-loader", // compiles Sass to CSS
                 //         },
+                //         {
+                //             loader: "style-resources-loader",
+                //             options: {
+                //                 scss: glob.sync("src/**/*.scss"),
+                //             },
+                //         }
                 //     ],
+                // },
+                // {
+                //     test: /\.vue$/,
+                //     loader: "vue-loader",
                 // },
                 {
                     test: /\.scss$/,
@@ -116,25 +138,57 @@ module.exports = (env, argv) => {
                     use: [
                         MiniCssExtractPlugin.loader,
                         {
-                            loader: "css-loader", // translates CSS into CommonJS
+                            loader: "css-loader",
+                            // translates CSS into CommonJS 
                         },
                         {
-                            loader: "postcss-loader", // 添加postcss-loader，用于处理兼容性问题
+                            loader: "postcss-loader",
+                            // 添加postcss-loader，用于处理兼容性问题 
                             options: {
                                 postcssOptions: {
-                                    config: path.resolve(__dirname, "postcss.config.js"), // 指定postcss插件配置文件
+                                    config: path.resolve(__dirname, "postcss.config.js"),
+                                    // 指定postcss插件配置文件 
                                 },
                             },
                         },
                         {
-                            loader: "sass-loader", // compiles Sass to CSS
+                            loader: "sass-loader",
+                            // compiles Sass to CSS 
+                        },
+                        {
+                            loader: "style-resources-loader",
+                            options: {
+                                patterns: glob.sync("src/**/*.scss"),
+                            },
                         },
                     ],
                 },
                 {
                     test: /\.vue$/,
                     loader: "vue-loader",
+                    options: {
+                        // 处理vue单文件组件中的样式
+                        loaders: {
+                            scss: ["vue-style-loader", "css-loader", "postcss-loader", "sass-loader"],
+                            css: ["vue-style-loader", "css-loader", "postcss-loader"],
+                        },
+                        // 将common scss 变量、mixin和functions注入到所有单文件组件中
+                        styleResources: {
+                            scss: glob.sync("src/**/*.scss"),
+                        },
+                        search: "@assets",
+                        replace: "plugins/"+projectName+"/assets",
+                    },
                 },
+                {
+                    test: /\.css$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        "css-loader",
+                        "postcss-loader"
+                    ],
+                },
+
                 {
                     resourceQuery: /blockType=setup/,
                     use: [

@@ -10,7 +10,7 @@
 </template>
   
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "InfoDisplay",
