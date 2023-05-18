@@ -23,3 +23,14 @@ interface Window {
     modDate?: string;
     [key: string]: string | string[] | undefined;
 }
+
+interface FileInfo {
+  name: string;
+  dir: string;
+  ext: string;
+  size: number;
+}
+
+// interface FileGroups {
+//   [key: string]: string[];
+// }
