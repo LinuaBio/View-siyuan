@@ -1,4 +1,4 @@
-import { createThumbnail } from "./image";
+// import { createThumbnail } from "./image";
 
 const { exec } = require("child_process");
 const fs = require("fs");
